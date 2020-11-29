@@ -1,7 +1,7 @@
 package gui;
 
 import gui.panels.ButtonPanel;
-import gui.panels.ShowInfoPanel;
+import gui.panels.InfoPanel;
 import gui.panels.ShowSelectPanel;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class RemoteControl extends Application {
 	private ButtonPanel buttonPanel;
-	private ShowInfoPanel showInfo;
+	private InfoPanel showInfo;
 	private ShowSelectPanel showSelect;
 
 	public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class RemoteControl extends Application {
 		arg0.setTitle("Remote Control");
 		buttonPanel = new ButtonPanel();
 		showSelect = new ShowSelectPanel();
-		showInfo = new ShowInfoPanel();
+		showInfo = new InfoPanel();
 		Text showTitle = new Text("Shows");
 		HBox hBox = new HBox();
 		hBox.getChildren().add(buttonPanel);
