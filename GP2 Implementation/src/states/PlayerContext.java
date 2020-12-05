@@ -1,6 +1,5 @@
 package states;
 
-import controller.Controller;
 import events.FastForwardEvent;
 import events.OffEvent;
 import events.OnEvent;
@@ -11,9 +10,9 @@ import events.SelectEvent;
 import events.StopEvent;
 import events.TimerCompletedEvent;
 import events.TimerTicksEvent;
-import gui.panels.InfoPanel;
+import panels.InfoPanel;
 
-public class PlayerContext implements Controller {
+public class PlayerContext {
 	private InfoPanel infoPanel;
 	private PlayerState currentState;
 	private static PlayerContext instance;
@@ -35,60 +34,50 @@ public class PlayerContext implements Controller {
 		currentState.enter();
 	}
 
-	@Override
 	public void handleEvent(FastForwardEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(OffEvent event) {
 		PlayerContext.instance().changeCurrentState(OffState.instance());
 	}
 
-	@Override
 	public void handleEvent(OnEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(PauseEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(PlayEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(RewindEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(SelectEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(StopEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(TimerCompletedEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void handleEvent(TimerTicksEvent event) {
 		// TODO Auto-generated method stub
 

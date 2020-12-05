@@ -1,4 +1,4 @@
-package gui.panels;
+package panels;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;

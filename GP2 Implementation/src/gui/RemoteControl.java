@@ -1,14 +1,14 @@
 package gui;
 
-import gui.panels.ButtonPanel;
-import gui.panels.InfoPanel;
-import gui.panels.ShowSelectPanel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import panels.ButtonPanel;
+import panels.InfoPanel;
+import panels.ShowSelectPanel;
 
 public class RemoteControl extends Application {
 	private ButtonPanel buttonPanel;
