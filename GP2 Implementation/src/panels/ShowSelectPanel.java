@@ -8,6 +8,9 @@ import shows.Show;
 import shows.Shows;
 import states.PlayerContext;
 
+/**
+ * This class represents the show selected panel
+ */
 public class ShowSelectPanel extends ListView {
 	public ShowSelectPanel() {
 		super(Shows.instance().getShows());

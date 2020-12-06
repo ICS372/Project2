@@ -11,6 +11,10 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
+/**
+ * This class represents the button panel
+ *
+ */
 public class ButtonPanel extends VBox {
 	private Button onButton;
 	private Button offButton;
@@ -20,6 +24,9 @@ public class ButtonPanel extends VBox {
 	private Button ffButton;
 	private Button rewindButton;
 
+	/**
+	 * Creating buttons
+	 */
 	public ButtonPanel() {
 		onButton = new OnButton();
 		offButton = new OffButton();

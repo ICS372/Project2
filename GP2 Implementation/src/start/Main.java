@@ -6,6 +6,10 @@ import javafx.application.Application;
 import states.PlayerContext;
 import timer.Clock;
 
+/**
+ * Main class
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {

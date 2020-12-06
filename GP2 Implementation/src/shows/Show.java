@@ -22,10 +22,20 @@ public class Show {
 		this.runningTime = runningTime;
 	}
 
+	/**
+	 * Gets name of show
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Gets running time of show
+	 * 
+	 * @return
+	 */
 	public int getRunningTime() {
 		return runningTime;
 	}
