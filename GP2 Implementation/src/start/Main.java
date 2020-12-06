@@ -7,8 +7,9 @@ import states.PlayerContext;
 import timer.Clock;
 
 /**
- * Main class
- *
+ * This program is the implementation of a remote control for a video player.
+ * 
+ * @author Shuja Uddin, Gina Bjork
  */
 public class Main {
 
