@@ -34,8 +34,9 @@ import events.TimerTicksEvent;
  * @author Brahma Dathan
  *
  */
-public class Timer implements PropertyChangeListener {
+public class RewindTimer implements PropertyChangeListener {
 	private int timeValue;
+	private int endValue;
 	private Notifiable client;
 
 	/**
@@ -45,9 +46,10 @@ public class Timer implements PropertyChangeListener {
 	 * @param timeValue the initial time value after which the timer runs out of
 	 *                  time.
 	 */
-	public Timer(Notifiable client, int timeValue) {
+	public RewindTimer(Notifiable client, int timeValue, int endValue) {
 		this.client = client;
 		this.timeValue = timeValue;
+		this.endValue = endValue;
 		Clock.instance().addPropertyChangeListener(this);
 	}
 
@@ -82,7 +84,8 @@ public class Timer implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		if (--timeValue <= 0) {
+		timeValue += 2;
+		if (timeValue >= endValue) {
 			client.handleEvent(TimerCompletedEvent.instance());
 			Clock.instance().removePropertyChangeListener(this);
 		} else {

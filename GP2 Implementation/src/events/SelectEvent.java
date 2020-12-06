@@ -1,29 +1,23 @@
 package events;
 
+import shows.Show;
+
 /**
  * Represents the Select event
  *
  */
 public class SelectEvent {
-	private static SelectEvent instance;
+	private Show show;
 
 	/**
 	 * Private for singleton
 	 * 
 	 */
-	private SelectEvent() {
-
+	public SelectEvent(Show show) {
+		this.show = show;
 	}
 
-	/**
-	 * For the singleton pattern
-	 * 
-	 * @return the only instance
-	 */
-	public static SelectEvent instance() {
-		if (instance == null) {
-			instance = new SelectEvent();
-		}
-		return instance;
+	public Show getShow() {
+		return this.show;
 	}
 }

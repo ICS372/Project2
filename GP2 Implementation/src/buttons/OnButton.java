@@ -1,6 +1,8 @@
 package buttons;
 
+import events.OnEvent;
 import javafx.event.ActionEvent;
+import states.PlayerContext;
 
 public class OnButton extends GUIButton {
 
@@ -11,7 +13,7 @@ public class OnButton extends GUIButton {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
+		PlayerContext.instance().handleEvent(OnEvent.instance());
 
 	}
 

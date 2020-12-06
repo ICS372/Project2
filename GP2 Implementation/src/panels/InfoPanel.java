@@ -12,15 +12,7 @@ public class InfoPanel extends VBox {
 		this.getChildren().add(info);
 	}
 
-	public void off() {
-		info.setText("Off");
-	}
-
-	public void noShowSelected() {
-		info.setText("No show selected.. going idle in ");
-	}
-
-	public void showTimeLeft(int value) {
-		info.appendText(value + "");
+	public void setText(String text) {
+		info.setText(text);
 	}
 }

@@ -8,12 +8,10 @@ import events.PlayEvent;
 import events.RewindEvent;
 import events.SelectEvent;
 import events.StopEvent;
-import events.TimerCompletedEvent;
-import events.TimerTicksEvent;
-import panels.InfoPanel;
+import gui.PlayerDisplay;
 
 public class PlayerContext {
-	private InfoPanel infoPanel;
+	private PlayerDisplay display;
 	private PlayerState currentState;
 	private static PlayerContext instance;
 
@@ -34,9 +32,16 @@ public class PlayerContext {
 		currentState.enter();
 	}
 
-	public void handleEvent(FastForwardEvent event) {
-		// TODO Auto-generated method stub
+	public void initialize() {
+		instance.changeCurrentState(OffState.instance());
+	}
 
+	public void setDisplay(PlayerDisplay display) {
+		this.display = display;
+	}
+
+	public void handleEvent(FastForwardEvent event) {
+		currentState.handleEvent(event);
 	}
 
 	public void handleEvent(OffEvent event) {
@@ -44,54 +49,50 @@ public class PlayerContext {
 	}
 
 	public void handleEvent(OnEvent event) {
-		// TODO Auto-generated method stub
-
+		currentState.handleEvent(event);
 	}
 
 	public void handleEvent(PauseEvent event) {
-		// TODO Auto-generated method stub
-
+		currentState.handleEvent(event);
 	}
 
 	public void handleEvent(PlayEvent event) {
-		// TODO Auto-generated method stub
-
+		currentState.handleEvent(event);
 	}
 
 	public void handleEvent(RewindEvent event) {
-		// TODO Auto-generated method stub
-
+		currentState.handleEvent(event);
 	}
 
 	public void handleEvent(SelectEvent event) {
-		// TODO Auto-generated method stub
-
+		currentState.handleEvent(event);
 	}
 
 	public void handleEvent(StopEvent event) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void handleEvent(TimerCompletedEvent event) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void handleEvent(TimerTicksEvent event) {
-		// TODO Auto-generated method stub
-
+		currentState.handleEvent(event);
 	}
 
 	public void playerOff() {
-		infoPanel.off();
+		display.off();
 	}
 
-	public void noShowSelected() {
-		infoPanel.noShowSelected();
+	public void noShowSelected(int time) {
+		display.noShowSelected(time);
 	}
 
-	public void showTimeLeft(int time) {
-		infoPanel.showTimeLeft(time);
+	public void idle() {
+		display.idle();
+	}
+
+	public void showSelected(String showName, int time, int showTime) {
+		display.showSelected(showName, time, showTime);
+	}
+
+	public void playingShow(String showName, int time, int showTime) {
+		display.playingShow(showName, time, showTime);
+	}
+
+	public void showCompleted(int time) {
+		display.showCompleted(time);
 	}
 }

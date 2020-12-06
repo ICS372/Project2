@@ -1,10 +1,11 @@
 package states;
 
-import timer.Timer;
+import events.PlayEvent;
+import events.StopEvent;
 
 public class ShowPausedState extends PlayerState {
+	private int remainingTime;
 	private static ShowPausedState instance;
-	private Timer timer;
 
 	private ShowPausedState() {
 
@@ -15,5 +16,20 @@ public class ShowPausedState extends PlayerState {
 			instance = new ShowPausedState();
 		}
 		return instance;
+	}
+
+	public void setRemainingTime(int remainingTime) {
+		this.remainingTime = remainingTime;
+	}
+
+	@Override
+	public void handleEvent(PlayEvent event) {
+		PlayingShowState.instance().setRemainingTime(remainingTime);
+		PlayerContext.instance().changeCurrentState(PlayingShowState.instance());
+	}
+
+	@Override
+	public void handleEvent(StopEvent event) {
+		PlayerContext.instance().changeCurrentState(ShowCompletedState.instance());
 	}
 }

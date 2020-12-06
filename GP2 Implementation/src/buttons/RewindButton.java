@@ -1,6 +1,8 @@
 package buttons;
 
+import events.RewindEvent;
 import javafx.event.ActionEvent;
+import states.PlayerContext;
 
 public class RewindButton extends GUIButton {
 
@@ -11,8 +13,7 @@ public class RewindButton extends GUIButton {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-
+		PlayerContext.instance().handleEvent(RewindEvent.instance());
 	}
 
 }

@@ -1,6 +1,8 @@
 package buttons;
 
+import events.PlayEvent;
 import javafx.event.ActionEvent;
+import states.PlayerContext;
 
 public class PlayButton extends GUIButton {
 
@@ -11,8 +13,7 @@ public class PlayButton extends GUIButton {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-
+		PlayerContext.instance().handleEvent(PlayEvent.instance());
 	}
 
 }

@@ -1,6 +1,8 @@
 package buttons;
 
+import events.FastForwardEvent;
 import javafx.event.ActionEvent;
+import states.PlayerContext;
 
 public class FFButton extends GUIButton {
 
@@ -11,8 +13,7 @@ public class FFButton extends GUIButton {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-
+		PlayerContext.instance().handleEvent(FastForwardEvent.instance());
 	}
 
 }

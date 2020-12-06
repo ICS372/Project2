@@ -1,6 +1,8 @@
 package buttons;
 
+import events.PauseEvent;
 import javafx.event.ActionEvent;
+import states.PlayerContext;
 
 public class PauseButton extends GUIButton {
 
@@ -11,8 +13,7 @@ public class PauseButton extends GUIButton {
 
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-
+		PlayerContext.instance().handleEvent(PauseEvent.instance());
 	}
 
 }
