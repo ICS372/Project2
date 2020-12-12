@@ -6,7 +6,6 @@ import events.RewindEvent;
 import events.StopEvent;
 import events.TimerCompletedEvent;
 import events.TimerTicksEvent;
-import shows.Show;
 import timer.Notifiable;
 import timer.Timer;
 
@@ -14,7 +13,6 @@ import timer.Timer;
  * Represents the Playing Show Selected Idle state.
  */
 public class PlayingShowState extends PlayerState implements Notifiable {
-	private Show show;
 	private int remainingTime;
 	private static PlayingShowState instance;
 	private Timer timer;
@@ -39,15 +37,6 @@ public class PlayingShowState extends PlayerState implements Notifiable {
 	}
 
 	/**
-	 * Setting show
-	 * 
-	 * @param show
-	 */
-	public void setShow(Show show) {
-		this.show = show;
-	}
-
-	/**
 	 * Set remaining time
 	 * 
 	 * @param remainingTime
@@ -61,7 +50,8 @@ public class PlayingShowState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(TimerTicksEvent event) {
-		PlayerContext.instance().playingShow(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		PlayerContext.instance().playingShow(PlayerContext.instance().showName(), timer.getTimeValue(),
+				PlayerContext.instance().showRunningTime());
 	}
 
 	/**
@@ -95,7 +85,6 @@ public class PlayingShowState extends PlayerState implements Notifiable {
 	@Override
 	public void handleEvent(RewindEvent event) {
 		RewindingShowState.instance().setRemainingTime(timer.getTimeValue());
-		RewindingShowState.instance().setShow(show);
 		PlayerContext.instance().changeCurrentState(RewindingShowState.instance());
 	}
 
@@ -105,7 +94,6 @@ public class PlayingShowState extends PlayerState implements Notifiable {
 	@Override
 	public void handleEvent(FastForwardEvent event) {
 		FastForwardingShowState.instance().setRemainingTime(timer.getTimeValue());
-		FastForwardingShowState.instance().setShow(show);
 		PlayerContext.instance().changeCurrentState(FastForwardingShowState.instance());
 	}
 
@@ -116,7 +104,8 @@ public class PlayingShowState extends PlayerState implements Notifiable {
 	@Override
 	public void enter() {
 		timer = new Timer(this, remainingTime);
-		PlayerContext.instance().playingShow(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		PlayerContext.instance().playingShow(PlayerContext.instance().showName(), timer.getTimeValue(),
+				PlayerContext.instance().showRunningTime());
 	}
 
 	@Override

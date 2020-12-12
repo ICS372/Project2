@@ -9,7 +9,6 @@ import events.SelectEvent;
 import events.StopEvent;
 import events.TimerCompletedEvent;
 import events.TimerTicksEvent;
-import shows.Show;
 import timer.Notifiable;
 import timer.Timer;
 
@@ -17,7 +16,6 @@ import timer.Timer;
  * Represents the Show Selected state.
  */
 public class ShowSelectedState extends PlayerState implements Notifiable {
-	private Show show;
 	private static ShowSelectedState instance;
 	private Timer timer;
 
@@ -40,13 +38,6 @@ public class ShowSelectedState extends PlayerState implements Notifiable {
 	}
 
 	/**
-	 * Sets the show
-	 */
-	public void setShow(Show show) {
-		this.show = show;
-	}
-
-	/**
 	 * Process on event
 	 */
 	@Override
@@ -59,11 +50,10 @@ public class ShowSelectedState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(SelectEvent event) {
-		setShow(event.getShow());
-		PlayingShowState.instance().setShow(show);
-		PlayingShowState.instance().setRemainingTime(show.getRunningTime());
+		PlayerContext.instance().setShow(event.getShow());
 		timer.setTimeValue(10);
-		PlayerContext.instance().showSelected(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		PlayerContext.instance().showSelected(PlayerContext.instance().showName(), timer.getTimeValue(),
+				PlayerContext.instance().showRunningTime());
 	}
 
 	/**
@@ -71,7 +61,8 @@ public class ShowSelectedState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(TimerTicksEvent event) {
-		PlayerContext.instance().showSelected(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		PlayerContext.instance().showSelected(PlayerContext.instance().showName(), timer.getTimeValue(),
+				PlayerContext.instance().showRunningTime());
 	}
 
 	/**
@@ -87,6 +78,7 @@ public class ShowSelectedState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(PlayEvent event) {
+		PlayingShowState.instance().setRemainingTime(PlayerContext.instance().showRunningTime());
 		PlayerContext.instance().changeCurrentState(PlayingShowState.instance());
 	}
 
@@ -129,13 +121,13 @@ public class ShowSelectedState extends PlayerState implements Notifiable {
 	@Override
 	public void enter() {
 		timer = new Timer(this, 10);
-		PlayerContext.instance().showSelected(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		PlayerContext.instance().showSelected(PlayerContext.instance().showName(), timer.getTimeValue(),
+				PlayerContext.instance().showRunningTime());
 	}
 
 	@Override
 	public void leave() {
 		timer.stop();
 		timer = null;
-		PlayerContext.instance().showSelected(show.getName(), 0, show.getRunningTime());
 	}
 }

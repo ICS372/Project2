@@ -6,14 +6,12 @@ import events.PauseEvent;
 import events.PlayEvent;
 import events.RewindEvent;
 import events.StopEvent;
-import timer.Timer;
 
 /**
  * Represents the Show Selected Idle state.
  */
 public class ShowSelectedIdleState extends PlayerState {
 	private static ShowSelectedIdleState instance;
-	private Timer timer;
 
 	/**
 	 * Private for the singleton pattern
@@ -54,6 +52,7 @@ public class ShowSelectedIdleState extends PlayerState {
 	 */
 	@Override
 	public void handleEvent(PlayEvent event) {
+		PlayingShowState.instance().setRemainingTime(PlayerContext.instance().showRunningTime());
 		PlayerContext.instance().changeCurrentState(PlayingShowState.instance());
 	}
 

@@ -9,6 +9,7 @@ import events.RewindEvent;
 import events.SelectEvent;
 import events.StopEvent;
 import gui.PlayerDisplay;
+import shows.Show;
 
 /**
  * This class is observer and stores the context info for states
@@ -18,6 +19,7 @@ public class PlayerContext {
 	private PlayerDisplay display;
 	private PlayerState currentState;
 	private static PlayerContext instance;
+	private Show currentShow;
 
 	/**
 	 * Make it a singleton
@@ -54,6 +56,33 @@ public class PlayerContext {
 	 */
 	public void initialize() {
 		instance.changeCurrentState(OffState.instance());
+	}
+
+	/**
+	 * Sets the current show
+	 * 
+	 * @param show selected show
+	 */
+	public void setShow(Show show) {
+		this.currentShow = show;
+	}
+
+	/**
+	 * Returns the name of the current show
+	 * 
+	 * @return name of current show
+	 */
+	public String showName() {
+		return currentShow.getName();
+	}
+
+	/**
+	 * Returns the running time of the current show
+	 * 
+	 * @return running time of current show
+	 */
+	public int showRunningTime() {
+		return currentShow.getRunningTime();
 	}
 
 	/**

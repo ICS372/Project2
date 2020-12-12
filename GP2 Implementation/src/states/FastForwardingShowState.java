@@ -4,9 +4,8 @@ import events.PlayEvent;
 import events.StopEvent;
 import events.TimerCompletedEvent;
 import events.TimerTicksEvent;
-import shows.Show;
-import timer.FastForwardTimer;
 import timer.Notifiable;
+import timer.Timer;
 
 /**
  * Represents the Fast Forwarding state.
@@ -14,9 +13,8 @@ import timer.Notifiable;
  */
 public class FastForwardingShowState extends PlayerState implements Notifiable {
 	private int remainingTime;
-	private Show show;
 	private static FastForwardingShowState instance;
-	private FastForwardTimer timer;
+	private Timer timer;
 
 	/**
 	 * Private for the singleton pattern
@@ -47,20 +45,13 @@ public class FastForwardingShowState extends PlayerState implements Notifiable {
 	}
 
 	/**
-	 * Sets the show
-	 * 
-	 * @param show
-	 */
-	public void setShow(Show show) {
-		this.show = show;
-	}
-
-	/**
 	 * Process clock tick event
 	 */
 	@Override
 	public void handleEvent(TimerTicksEvent event) {
-		PlayerContext.instance().playingShow(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		remainingTime -= 2;
+		PlayerContext.instance().playingShow(PlayerContext.instance().showName(), remainingTime,
+				PlayerContext.instance().showRunningTime());
 	}
 
 	/**
@@ -76,7 +67,7 @@ public class FastForwardingShowState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(PlayEvent event) {
-		PlayingShowState.instance().setRemainingTime(timer.getTimeValue());
+		PlayingShowState.instance().setRemainingTime(remainingTime);
 		PlayerContext.instance().changeCurrentState(PlayingShowState.instance());
 	}
 
@@ -94,8 +85,9 @@ public class FastForwardingShowState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void enter() {
-		timer = new FastForwardTimer(this, remainingTime);
-		PlayerContext.instance().playingShow(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		timer = new Timer(this, (remainingTime + 1) / 2);
+		PlayerContext.instance().playingShow(PlayerContext.instance().showName(), remainingTime,
+				PlayerContext.instance().showRunningTime());
 	}
 
 	@Override

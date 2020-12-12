@@ -4,18 +4,16 @@ import events.PlayEvent;
 import events.StopEvent;
 import events.TimerCompletedEvent;
 import events.TimerTicksEvent;
-import shows.Show;
 import timer.Notifiable;
-import timer.RewindTimer;
+import timer.Timer;
 
 /**
  * Represents the Rewinding Show state.
  */
 public class RewindingShowState extends PlayerState implements Notifiable {
 	private int remainingTime;
-	private Show show;
 	private static RewindingShowState instance;
-	private RewindTimer timer;
+	private Timer timer;
 
 	/**
 	 * Private for the singleton pattern
@@ -46,20 +44,13 @@ public class RewindingShowState extends PlayerState implements Notifiable {
 	}
 
 	/**
-	 * Setting a show
-	 * 
-	 * @param show
-	 */
-	public void setShow(Show show) {
-		this.show = show;
-	}
-
-	/**
 	 * Process timer ticks event
 	 */
 	@Override
 	public void handleEvent(TimerTicksEvent event) {
-		PlayerContext.instance().playingShow(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		remainingTime += 2;
+		PlayerContext.instance().playingShow(PlayerContext.instance().showName(), remainingTime,
+				PlayerContext.instance().showRunningTime());
 	}
 
 	/**
@@ -75,7 +66,7 @@ public class RewindingShowState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(PlayEvent event) {
-		PlayingShowState.instance().setRemainingTime(timer.getTimeValue());
+		PlayingShowState.instance().setRemainingTime(remainingTime);
 		PlayerContext.instance().changeCurrentState(PlayingShowState.instance());
 	}
 
@@ -93,8 +84,9 @@ public class RewindingShowState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void enter() {
-		timer = new RewindTimer(this, remainingTime, show.getRunningTime());
-		PlayerContext.instance().playingShow(show.getName(), timer.getTimeValue(), show.getRunningTime());
+		timer = new Timer(this, ((int) (PlayerContext.instance().showRunningTime() - remainingTime + 1) / 2));
+		PlayerContext.instance().playingShow(PlayerContext.instance().showName(), remainingTime,
+				PlayerContext.instance().showRunningTime());
 	}
 
 	@Override

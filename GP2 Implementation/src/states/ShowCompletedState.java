@@ -50,9 +50,7 @@ public class ShowCompletedState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(SelectEvent event) {
-		ShowSelectedState.instance().setShow(event.getShow());
-		PlayingShowState.instance().setShow(event.getShow());
-		PlayingShowState.instance().setRemainingTime(event.getShow().getRunningTime());
+		PlayerContext.instance().setShow(event.getShow());
 		PlayerContext.instance().changeCurrentState(ShowSelectedState.instance());
 	}
 
@@ -61,6 +59,7 @@ public class ShowCompletedState extends PlayerState implements Notifiable {
 	 */
 	@Override
 	public void handleEvent(PlayEvent event) {
+		PlayingShowState.instance().setRemainingTime(PlayerContext.instance().showRunningTime());
 		PlayerContext.instance().changeCurrentState(PlayingShowState.instance());
 	}
 
